@@ -3,8 +3,14 @@ class TodosController < ApplicationController
 
   # GET /todos
   def index
-    @todos = Todo.all
-
+    if(params[:status] == "closed")
+      @todos = Todo.where(status: "closed")
+    elsif(params[:status] == "open")
+      @todos = Todo.where(status: "open")
+    else
+      @todos = Todo.all
+    end
+  
     render json: @todos
   end
 
